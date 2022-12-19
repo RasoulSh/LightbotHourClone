@@ -1,0 +1,16 @@
+{
+    "name": "LevelInteractor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d36e1a3e39337e646bc1bd19655a6ee6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
