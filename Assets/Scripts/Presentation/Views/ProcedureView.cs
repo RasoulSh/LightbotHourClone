@@ -1,5 +1,5 @@
-﻿using System;
-using LightbotHour.Common.Extensions;
+﻿using LightbotHour.Common.Extensions;
+using LightbotHour.Common.GUIPanelSystem;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace LightbotHour.Presentation.Views
 {
-    public class ProcedureView : MonoBehaviour
+    public class ProcedureView : GUIPanel
     {
         [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private GridLayoutGroup codeItemGrid;

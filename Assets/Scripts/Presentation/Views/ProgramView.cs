@@ -1,47 +1,53 @@
-﻿using LightbotHour.LevelInteractor;
+﻿using System;
+using LightbotHour.Common.GUIPanelSystem;
+using LightbotHour.Common.Mediator;
+using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
-using LightbotHour.Presentation.Views.ViewTools;
+using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace LightbotHour.Presentation.Views
 {
-    public class ProgramView : MonoBehaviour
+    public class ProgramView : GUIPanel, ICommandHandler<AddCodeItem, bool>
     {
         [SerializeField] private LevelInteractorPresenter presenter;
-        [SerializeField] private LevelView levelView;
-        [SerializeField] private ViewManager viewManager;
         [SerializeField] private ProcedureView mainProcedureView;
         [SerializeField] private Button runButton;
-        [SerializeField] private Button retryButton;
-        [SerializeField] private Button restartButton;
-        [SerializeField] private Button backButton;
         [SerializeField] private Button nextLevelButton;
-        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Button retryButton;
         private IProgramController _programController;
-        public bool Interactable
-        {
-            get => canvasGroup.interactable;
-            set => canvasGroup.interactable = value;
-        }
+        private ILevelController _levelController;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _programController = presenter.ProgramController;
-            runButton.onClick.AddListener(RunProgram);
+            _levelController = presenter.LevelController;
             _programController.OnProgramRunFinished += OnProgramRunFinished;
+            _levelController.OnLevelChanged += Clear;
+            runButton.onClick.AddListener(RunProgram);
+            nextLevelButton.onClick.AddListener(_levelController.NextLevel);
             retryButton.gameObject.SetActive(false);
             retryButton.onClick.AddListener(Retry);
-            restartButton.onClick.AddListener(levelView.ResetLevel);
-            backButton.onClick.AddListener(viewManager.GoToMenu);
-            nextLevelButton.onClick.AddListener(levelView.NextLevel);
+        }
+
+        private void OnEnable()
+        {
+            Mediator.Subscribe(this);
+        }
+
+        private void OnDisable()
+        {
+            Mediator.Unsubscribe(this);
         }
 
         private void Retry()
         {
-            levelView.ResetLevel();
-            viewManager.SetInteractable(true);
+            _levelController.ResetLevel();
+            Mediator.Send<SetInGamePanelsInteractable, bool>(
+                new SetInGamePanelsInteractable(true));
         }
 
         private void OnProgramRunFinished(bool isSuccessful)
@@ -57,22 +63,30 @@ namespace LightbotHour.Presentation.Views
         private void RunProgram()
         {
             runButton.interactable = false;
-            viewManager.SetInteractable(false);
+            Mediator.Send<SetInGamePanelsInteractable, bool>(
+                new SetInGamePanelsInteractable(false));
             _programController.RunProgram();
         }
 
-        public void Clear()
+        private void Clear()
         {
             mainProcedureView.Clear();
             runButton.interactable = true;
             retryButton.gameObject.SetActive(false);
             nextLevelButton.gameObject.SetActive(false);
-            viewManager.SetInteractable(true);
+            Mediator.Send<SetInGamePanelsInteractable, bool>(
+                new SetInGamePanelsInteractable(true));
         }
 
-        public void AddCodeItem(BotCommandValue code)
+        private void AddCodeItem(BotCommandValue code)
         {
             mainProcedureView.AddCodeItem(code);
+        }
+
+        public bool Handle(AddCodeItem data)
+        {
+            AddCodeItem(data.Code);
+            return true;
         }
     }
 }

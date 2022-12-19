@@ -1,27 +1,34 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using LightbotHour.Common.GUIPanelSystem;
+using LightbotHour.Common.Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using Presentation.GUI.LevelGUI;
+using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace LightbotHour.Presentation.Views
 {
-    public class LevelView : MonoBehaviour
+    public class LevelView : GUIPanel, ICommandHandler<ShowLevelView, bool>
     {
         [SerializeField] private LevelInteractorPresenter presenter;
-        [SerializeField] private InventoryView inventoryView;
-        [SerializeField] private ProgramView programView;
         [SerializeField] private GridLayoutGroup levelGrid;
         [SerializeField] private LevelItemGUI levelItemPrefab;
         private ILevelController _levelController;
-        private int currentLevelIndex;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+            Mediator.Subscribe(this);
             _levelController = presenter.LevelController;
+            _levelController.OnLevelChanged += OnLevelChanged;
             Initialize();
+        }
+
+        private void OnDestroy()
+        {
+            Mediator.Unsubscribe(this);
         }
 
         private void Initialize()
@@ -43,35 +50,18 @@ namespace LightbotHour.Presentation.Views
 
         private void OnEachItemSelect(LevelItemGUI levelItem)
         {
-            SelectLevel(levelItem.LevelIndex);
+            _levelController.ChangeLevel(levelItem.LevelIndex);
         }
 
-        public void ResetLevel()
+        private void OnLevelChanged()
         {
-            SelectLevel(currentLevelIndex);
-        }
-
-        public void NextLevel()
-        {
-            SelectLevel(currentLevelIndex + 1);
-        }
-
-        public void SelectLevel(int index)
-        {
-            if (_levelController.Config.Levels.Count() < index + 1)
-            {
-                return;
-            }
-            currentLevelIndex = index;
-            _levelController.ChangeLevel(index);
-            inventoryView.UpdateGUI();
-            programView.Clear();
             Toggle(false);
         }
 
-        public void Toggle(bool isShown)
+        public bool Handle(ShowLevelView data)
         {
-            gameObject.SetActive(isShown);
+            Toggle(true);
+            return true;
         }
     }
 }

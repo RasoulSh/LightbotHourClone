@@ -1,32 +1,29 @@
 ﻿using System;
 using LightbotHour.Common.Extensions;
+using LightbotHour.Common.GUIPanelSystem;
+using LightbotHour.Common.Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
 using LightbotHour.Presentation.GUI.InventoryGUI;
+using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace LightbotHour.Presentation.Views
 {
-    public class InventoryView : MonoBehaviour
+    public class InventoryView : GUIPanel
     {
         [SerializeField] private LevelInteractorPresenter presenter;
-        [SerializeField] private ProgramView programView;
         [SerializeField] private InventoryItemGUI itemPrefab;
         [SerializeField] private GridLayoutGroup itemGrid;
-        [SerializeField] private CanvasGroup canvasGroup;
         private IInventoryController _inventoryController;
 
-        public bool Interactable
+        protected override void Start()
         {
-            get => canvasGroup.interactable;
-            set => canvasGroup.interactable = value;
-        }
-
-        private void Start()
-        {
+            base.Start();
             _inventoryController = presenter.InventoryController;
+            presenter.LevelController.OnLevelChanged += UpdateGUI;
         }
 
         public void UpdateGUI()
@@ -53,7 +50,7 @@ namespace LightbotHour.Presentation.Views
 
         private void OnEachItemSelect(InventoryItemGUI inventoryItem)
         {
-            programView.AddCodeItem(inventoryItem.Command);
+            Mediator.Send<AddCodeItem, bool>(new AddCodeItem(inventoryItem.Command));
         }
         
     }
