@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using LightbotHour.Common.Extensions;
 using LightbotHour.Common.GUIPanelSystem;
 using LightbotHour.Common.Mediator;
@@ -30,9 +31,10 @@ namespace LightbotHour.Presentation.Views
         {
             Clear();
             var commands = _inventoryController.CurrentAvailableCommands;
+            var isProc1Available = commands.Any(cmd => cmd == BotCommandValue.Proc1);
             foreach (var command in commands)
             {
-                AddInventoryItem(command);
+                AddInventoryItem(command, isProc1Available);
             }
         }
 
@@ -41,11 +43,17 @@ namespace LightbotHour.Presentation.Views
             itemGrid.transform.DestroyAllChildren();
         }
 
-        private void AddInventoryItem(BotCommandValue command)
+        private void AddInventoryItem(BotCommandValue command, bool isProc1Available)
         {
             var newItem = Instantiate(itemPrefab, itemGrid.transform);
-            newItem.Initialize(command);
+            newItem.Initialize(command, isProc1Available);
             newItem.OnSelect += OnEachItemSelect;
+            newItem.OnSelectProc1 += OnEachItemSelectProc1;
+        }
+
+        private void OnEachItemSelectProc1(InventoryItemGUI inventoryitem)
+        {
+            Mediator.Send<AddCodeItemToProc1, bool>(new AddCodeItemToProc1(inventoryitem.Command));
         }
 
         private void OnEachItemSelect(InventoryItemGUI inventoryItem)

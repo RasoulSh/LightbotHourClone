@@ -11,7 +11,10 @@ namespace LightbotHour.LevelService.Abstraction
         Level CurrentLevel { get; }
         void AddCommand(BotCommands command);
         void RemoveCommand(int index);
+        void AddCommandToProcedure1(BotCommands command);
+        void RemoveCommandFromProcedure1(int index);
         void RunProgram();
+        void StopProgram();
         public event SuccessDelegate OnProgramRunFinished;
         delegate void SuccessDelegate(bool isSuccessful);
     }

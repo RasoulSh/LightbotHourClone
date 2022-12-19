@@ -15,7 +15,8 @@ namespace LightbotHour.Presentation.Localization.Translators
                 { BotCommandValue.Jump, "Jump"},
                 { BotCommandValue.Enlighten, "Enlighten"},
                 { BotCommandValue.RotLeft, "Rot Left"},
-                { BotCommandValue.RotRight, "Rot Right"}
+                { BotCommandValue.RotRight, "Rot Right"},
+                { BotCommandValue.Proc1, "P1"}
             };
         }
         

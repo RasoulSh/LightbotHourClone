@@ -14,11 +14,12 @@ namespace LightbotHour.Presentation.Views
         [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private GridLayoutGroup codeItemGrid;
         [SerializeField] private CodeItemGUI codeItemPrefab;
-        private IProgramController _programController;
+        protected IProgramController programController;
 
-        private void Start()
+        protected override void Start()
         {
-            _programController = presenter.ProgramController;
+            base.Start();
+            programController = presenter.ProgramController;
         }
 
         public void Clear()
@@ -31,12 +32,12 @@ namespace LightbotHour.Presentation.Views
             var newCodeItem = Instantiate(codeItemPrefab, codeItemGrid.transform);
             newCodeItem.Initialize(codeItemGrid.transform.childCount - 1, command);
             newCodeItem.OnSelect += OnEachItemSelect;
-            _programController.AddCommand(command);
+            AddCommand(command);
         }
         
         private void OnEachItemSelect(CodeItemGUI codeItem)
         {
-            _programController.RemoveCommand(codeItem.Index);
+            RemoveCommand(codeItem.Index);
             DestroyImmediate(codeItem.gameObject);
             RefreshIndexes();
         }
@@ -50,6 +51,16 @@ namespace LightbotHour.Presentation.Views
                 var item = gridTransform.GetChild(i).GetComponent<CodeItemGUI>();
                 item.Index = i;
             }
+        }
+
+        protected virtual void AddCommand(BotCommandValue command)
+        {
+            programController.AddCommand(command);
+        }
+
+        protected virtual void RemoveCommand(int index)
+        {
+            programController.RemoveCommand(index);
         }
     }
 }

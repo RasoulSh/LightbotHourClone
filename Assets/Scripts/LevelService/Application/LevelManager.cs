@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using LevelService.Mappers;
 using LightbotHour.InventoryService;
 using LightbotHour.InventoryService.Abstraction;
@@ -25,13 +26,16 @@ namespace LightbotHour.LevelService.Application
         private IInventory<IExecutable> _inventory;
         public IEnumerable<Level> Levels => levelConfig.Levels;
         public Level CurrentLevel { get; private set; }
+
         public event ILevelManager.SuccessDelegate OnProgramRunFinished;
+        private IProcedure _procedure1;
 
         private void Start()
         {
             _program = GetComponent<ProgramPresenter>().Program;
             _inventoryPresenter = GetComponent<InventoryPresenter>();
             _levelPipeline = GetComponent<LevelPipeline>();
+            _procedure1 = _program.NewProcedure();
             _program.OnRunCompleted += OnProgramRunCompleted;
         }
         
@@ -42,7 +46,7 @@ namespace LightbotHour.LevelService.Application
 
         public void AddCommand(BotCommands command)
         {
-            _program.NewCodeLine(CodeMapper.MapToCode(command, bot));
+            _program.AddCodeLine(GetCodeLine(command));
         }
 
         public void RemoveCommand(int index)
@@ -50,9 +54,24 @@ namespace LightbotHour.LevelService.Application
             _program.RemoveItem(index);
         }
 
+        public void AddCommandToProcedure1(BotCommands command)
+        {
+            _procedure1.AddCodeLine(GetCodeLine(command));
+        }
+
+        public void RemoveCommandFromProcedure1(int index)
+        {
+            _procedure1.RemoveCodeLine(index);
+        }
+
         public void RunProgram()
         {
             _program.Run();
+        }
+        
+        public void StopProgram()
+        {
+            _program.Stop();
         }
 
         private void OnProgramRunCompleted(IProgram program)
@@ -66,6 +85,7 @@ namespace LightbotHour.LevelService.Application
             CurrentLevel = level;
             _inventory = _inventoryPresenter.NewInventory<IExecutable>();
             _program.Clear();
+            _procedure1.Clear();
             var availableCodes = CodeMapper.MapToCode(level.availableCommands, bot);
             foreach (var availableCode in availableCodes)
             {
@@ -73,6 +93,21 @@ namespace LightbotHour.LevelService.Application
             }
             var cubeItems = _levelPipeline.RegenerateLevel(level);
             bot.Initialize(cubeItems, level.initialPlayerPoint, level.initialPlayerRotation);
+        }
+
+        private IExecutable GetCodeLine(BotCommands command)
+        {
+            IExecutable codeLine;
+            if (command == BotCommands.Proc1)
+            {
+                codeLine = _procedure1;
+            }
+            else
+            {
+                codeLine = CodeMapper.MapToCode(command, bot);
+            }
+
+            return codeLine;
         }
     }
 }

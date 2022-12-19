@@ -159,3 +159,27 @@ MonoBehaviour:
     availableCommands: 0000000002000000030000000400000001000000
     initialPlayerPoint: {x: 0, y: 0, z: 0}
     initialPlayerRotation: 0
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 1, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 3, y: 0, z: 0}
+      hasLight: 1
+    - point: {x: 3, y: 0, z: -1}
+      hasLight: 0
+    - point: {x: 3, y: 0, z: -2}
+      hasLight: 0
+    - point: {x: 3, y: 0, z: -3}
+      hasLight: 1
+    - point: {x: 2, y: 0, z: -3}
+      hasLight: 0
+    - point: {x: 1, y: 0, z: -3}
+      hasLight: 0
+    - point: {x: 0, y: 0, z: -3}
+      hasLight: 1
+    availableCommands: 000000000200000003000000040000000100000005000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 90

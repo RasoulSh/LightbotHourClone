@@ -18,8 +18,13 @@ namespace LightbotHour.Presentation.Views
         private void Start()
         {
             _levelController = presenter.LevelController;
-            restartButton.onClick.AddListener(_levelController.ResetLevel);
+            restartButton.onClick.AddListener(OnRestartButtonClicked);
             backButton.onClick.AddListener(BackToLevelView);
+        }
+
+        private void OnRestartButtonClicked()
+        {
+            _levelController.ResetLevel();
         }
 
         private void BackToLevelView()

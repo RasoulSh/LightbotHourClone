@@ -6,10 +6,11 @@ namespace LightbotHour.ProgramService.Abstraction
     {
         event ProgramDelegate OnRunCompleted;
         delegate void ProgramDelegate(IProgram program);
-        IExecutable NewCodeLine(IExecutable codeLine);
+        IExecutable AddCodeLine(IExecutable codeLine);
         IProcedure NewProcedure();
         void RemoveItem(int index);
         void Clear();
         void Run();
+        void Stop();
     }
 }

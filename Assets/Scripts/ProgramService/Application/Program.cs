@@ -8,13 +8,14 @@ namespace LightbotHour.ProgramService.Application
     {
         public event IProgram.ProgramDelegate OnRunCompleted;
         private IProcedure _mainProcedure;
+        private Coroutine _runRoutine;
 
         private void Start()
         {
             _mainProcedure = new Procedure();
         }
 
-        public IExecutable NewCodeLine(IExecutable codeLine)
+        public IExecutable AddCodeLine(IExecutable codeLine)
         {
             _mainProcedure.AddCodeLine(codeLine);
             return codeLine;
@@ -23,7 +24,6 @@ namespace LightbotHour.ProgramService.Application
         public IProcedure NewProcedure()
         {
             var newProcedure = new Procedure();
-            _mainProcedure.AddCodeLine(newProcedure);
             return newProcedure;
         }
 
@@ -36,7 +36,16 @@ namespace LightbotHour.ProgramService.Application
 
         public void Run()
         {
-            StartCoroutine(RunRoutine());
+            _runRoutine = StartCoroutine(RunRoutine());
+        }
+
+        public void Stop()
+        {
+            if (_runRoutine == null)
+            {
+                return;
+            }
+            StopCoroutine(_runRoutine);
         }
 
         private IEnumerator RunRoutine()

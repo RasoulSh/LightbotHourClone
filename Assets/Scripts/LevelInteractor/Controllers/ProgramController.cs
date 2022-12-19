@@ -29,6 +29,11 @@ namespace LightbotHour.LevelInteractor.Controllers
             _levelManager.RunProgram();
         }
         
+        public void StopProgram()
+        {
+            _levelManager.StopProgram();
+        }
+
         public void AddCommand(BotCommandValue command)
         {
             _levelManager.AddCommand(CommandValueMapper.MapToBotCommand(command));
@@ -37,6 +42,16 @@ namespace LightbotHour.LevelInteractor.Controllers
         public void RemoveCommand(int index)
         {
             _levelManager.RemoveCommand(index);
+        }
+
+        public void AddCommandToProcedure1(BotCommandValue command)
+        {
+            _levelManager.AddCommandToProcedure1(CommandValueMapper.MapToBotCommand(command));
+        }
+        
+        public void RemoveCommandFromProcedure1(int index)
+        {
+            _levelManager.RemoveCommandFromProcedure1(index);
         }
     }
 }
