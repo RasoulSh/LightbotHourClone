@@ -7,10 +7,10 @@ using UnityEngine;
 namespace LightbotHour.LevelService.Entities
 {
     [Serializable]
-    public class Level
+    public struct Level
     {
-        public List<Cube> cubes;
-        public List<BotCommands> availableCommands;
+        public Cube[] cubes;
+        public BotCommands[] availableCommands;
         public Vector3Int initialPlayerPoint;
         public PlayerRotation initialPlayerRotation;
     }

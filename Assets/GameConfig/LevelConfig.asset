@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c86b4ef7b54f88bf957dbc16a425d9, type: 3}
+  m_Name: LevelConfig
+  m_EditorClassIdentifier: 
+  levels:
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 1, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: 0}
+      hasLight: 1
+    availableCommands: 0000000002000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 90
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 0, y: 0, z: -1}
+      hasLight: 0
+    - point: {x: 0, y: 0, z: -2}
+      hasLight: 0
+    - point: {x: 1, y: 0, z: -2}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: -2}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: -1}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: 0}
+      hasLight: 1
+    availableCommands: 00000000020000000300000004000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 180
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: -1, y: 1, z: 0}
+      hasLight: 0
+    - point: {x: -1, y: 2, z: 1}
+      hasLight: 0
+    - point: {x: 0, y: 3, z: 1}
+      hasLight: 1
+    availableCommands: 0000000002000000030000000400000001000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 270
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 1, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 0, y: 1, z: 1}
+      hasLight: 0
+    - point: {x: 1, y: 1, z: 1}
+      hasLight: 0
+    - point: {x: 2, y: 1, z: 1}
+      hasLight: 0
+    - point: {x: 0, y: 0, z: 2}
+      hasLight: 0
+    - point: {x: 1, y: 0, z: 2}
+      hasLight: 0
+    - point: {x: 2, y: 0, z: 2}
+      hasLight: 0
+    - point: {x: 0, y: 1, z: 3}
+      hasLight: 0
+    - point: {x: 1, y: 1, z: 3}
+      hasLight: 0
+    - point: {x: 2, y: 1, z: 3}
+      hasLight: 0
+    - point: {x: 0, y: 2, z: 4}
+      hasLight: 0
+    - point: {x: 1, y: 2, z: 4}
+      hasLight: 0
+    - point: {x: 2, y: 2, z: 4}
+      hasLight: 1
+    availableCommands: 0000000002000000030000000400000001000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 90
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 1
+    - point: {x: -1, y: -1, z: 0}
+      hasLight: 0
+    - point: {x: -2, y: -1, z: 0}
+      hasLight: 0
+    - point: {x: -2, y: -1, z: -1}
+      hasLight: 1
+    - point: {x: -2, y: -2, z: -2}
+      hasLight: 0
+    - point: {x: -1, y: -2, z: -2}
+      hasLight: 0
+    - point: {x: 0, y: -2, z: -2}
+      hasLight: 1
+    availableCommands: 0000000002000000030000000400000001000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 270
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 1, y: 1, z: 0}
+      hasLight: 0
+    - point: {x: 1, y: 1, z: 1}
+      hasLight: 0
+    - point: {x: 1, y: 2, z: 2}
+      hasLight: 1
+    - point: {x: 0, y: 2, z: 2}
+      hasLight: 0
+    - point: {x: -1, y: 2, z: 2}
+      hasLight: 0
+    - point: {x: -1, y: 3, z: 3}
+      hasLight: 0
+    - point: {x: -1, y: 3, z: 4}
+      hasLight: 1
+    availableCommands: 0000000002000000030000000400000001000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 90
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 0, y: 0, z: -1}
+      hasLight: 0
+    - point: {x: 1, y: 1, z: -1}
+      hasLight: 1
+    - point: {x: 2, y: 0, z: -1}
+      hasLight: 1
+    - point: {x: 2, y: 1, z: 0}
+      hasLight: 1
+    - point: {x: 1, y: 2, z: 0}
+      hasLight: 1
+    availableCommands: 0000000002000000030000000400000001000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 180
+  - cubes:
+    - point: {x: 0, y: 0, z: 0}
+      hasLight: 0
+    - point: {x: 0, y: 1, z: 1}
+      hasLight: 0
+    - point: {x: 0, y: 2, z: 2}
+      hasLight: 0
+    - point: {x: 1, y: 2, z: 2}
+      hasLight: 0
+    - point: {x: 1, y: 1, z: 3}
+      hasLight: 1
+    - point: {x: 0, y: 1, z: 3}
+      hasLight: 1
+    - point: {x: -1, y: 2, z: 3}
+      hasLight: 1
+    availableCommands: 0000000002000000030000000400000001000000
+    initialPlayerPoint: {x: 0, y: 0, z: 0}
+    initialPlayerRotation: 0

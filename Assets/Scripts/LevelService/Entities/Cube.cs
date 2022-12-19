@@ -7,7 +7,7 @@ using UnityEngine;
 namespace LightbotHour.LevelService.Entities
 {
     [Serializable]
-    public class Cube
+    public struct Cube
     {
         public Vector3Int point;
         public bool hasLight;
