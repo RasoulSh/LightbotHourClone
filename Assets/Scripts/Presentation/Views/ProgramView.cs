@@ -14,7 +14,6 @@ namespace LightbotHour.Presentation.Views
     public class ProgramView : GUIPanel, ICommandHandler<AddCodeItem, bool>,
         ICommandHandler<AddCodeItemToProc1, bool>
     {
-        [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private ProcedureView mainProcedureView;
         [SerializeField] private Proc1View procedure1View;
         [SerializeField] private Button runButton;
@@ -24,9 +23,14 @@ namespace LightbotHour.Presentation.Views
         private IProgramController _programController;
         private ILevelController _levelController;
 
-        protected override void Start()
+        public override bool Initialize()
         {
-            base.Start();
+            if (base.Initialize() == false)
+            {
+                return false;
+            }
+            Mediator.Subscribe(this);
+            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
             _programController = presenter.ProgramController;
             _levelController = presenter.LevelController;
             _programController.OnProgramRunFinished += OnProgramRunFinished;
@@ -37,14 +41,10 @@ namespace LightbotHour.Presentation.Views
             retryButton.gameObject.SetActive(false);
             stopButton.gameObject.SetActive(false);
             retryButton.onClick.AddListener(Retry);
+            return true;
         }
 
-        private void OnEnable()
-        {
-            Mediator.Subscribe(this);
-        }
-
-        private void OnDisable()
+        private void OnDestroy()
         {
             Mediator.Unsubscribe(this);
         }

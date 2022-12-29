@@ -1,4 +1,5 @@
 ﻿using System;
+using LightbotHour.Common.GUIPanelSystem;
 using LightbotHour.Common.Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
@@ -8,18 +9,23 @@ using UnityEngine.UI;
 
 namespace LightbotHour.Presentation.Views
 {
-    public class TopBarView : MonoBehaviour
+    public class TopBarView : GUIPanel
     {
-        [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button backButton;
         private ILevelController _levelController;
 
-        private void Start()
+        public override bool Initialize()
         {
+            if (base.Initialize() == false)
+            {
+                return false;
+            }
+            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
             _levelController = presenter.LevelController;
             restartButton.onClick.AddListener(OnRestartButtonClicked);
             backButton.onClick.AddListener(BackToLevelView);
+            return true;
         }
 
         private void OnRestartButtonClicked()
@@ -30,6 +36,7 @@ namespace LightbotHour.Presentation.Views
         private void BackToLevelView()
         {
             Mediator.Send<ShowLevelView, bool>();
+            Mediator.Send<HideInGameView, bool>();
         }
     }
 }

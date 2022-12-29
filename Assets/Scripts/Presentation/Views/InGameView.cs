@@ -5,16 +5,22 @@ using UnityEngine;
 
 namespace LightbotHour.Presentation.Views
 {
-    public class InGameView : MonoBehaviour, ICommandHandler<SetInGamePanelsInteractable, bool>
+    public class InGameView : GUIPanel, ICommandHandler<SetInGamePanelsInteractable, bool>,
+        ICommandHandler<ShowInGameView, bool>, ICommandHandler<HideInGameView, bool>
     {
         [SerializeField] private GUIPanel[] panels;
 
-        private void OnEnable()
+        public override bool Initialize()
         {
+            if (base.Initialize() == false)
+            {
+                return false;
+            }
             Mediator.Subscribe(this);
+            return true;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Mediator.Unsubscribe(this);
         }
@@ -25,6 +31,18 @@ namespace LightbotHour.Presentation.Views
             {
                 panel.IsInteractable = data.IsInteractable;
             }
+            return true;
+        }
+
+        public bool Handle(ShowInGameView data)
+        {
+            Toggle(true);
+            return true;
+        }
+
+        public bool Handle(HideInGameView data)
+        {
+            Toggle(false);
             return true;
         }
     }

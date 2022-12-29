@@ -16,7 +16,7 @@ namespace LightbotHour.LevelInteractor.Controllers
         public event ILevelController.LevelDelegate OnLevelChanged;
         public int CurrentLevelIndex { get; private set; } = -1;
 
-        private void Start()
+        private void Awake()
         {
             _levelManager = GetComponent<LevelPresenter>().LevelManager;
         }

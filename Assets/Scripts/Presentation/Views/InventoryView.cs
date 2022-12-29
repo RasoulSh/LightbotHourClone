@@ -15,16 +15,21 @@ namespace LightbotHour.Presentation.Views
 {
     public class InventoryView : GUIPanel
     {
-        [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private InventoryItemGUI itemPrefab;
         [SerializeField] private GridLayoutGroup itemGrid;
         private IInventoryController _inventoryController;
 
-        protected override void Start()
+        public override bool Initialize()
         {
-            base.Start();
+            if (base.Initialize() == false)
+            {
+                return false;
+            }
+
+            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
             _inventoryController = presenter.InventoryController;
             presenter.LevelController.OnLevelChanged += UpdateGUI;
+            return true;
         }
 
         public void UpdateGUI()

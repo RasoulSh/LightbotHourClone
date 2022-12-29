@@ -12,33 +12,32 @@ namespace LightbotHour.Presentation.Views
 {
     public class LevelView : GUIPanel, ICommandHandler<ShowLevelView, bool>
     {
-        [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private GridLayoutGroup levelGrid;
         [SerializeField] private LevelItemGUI levelItemPrefab;
         private ILevelController _levelController;
-
-        protected override void Start()
-        {
-            base.Start();
-            Mediator.Subscribe(this);
-            _levelController = presenter.LevelController;
-            _levelController.OnLevelChanged += OnLevelChanged;
-            Initialize();
-        }
 
         private void OnDestroy()
         {
             Mediator.Unsubscribe(this);
         }
 
-        private void Initialize()
+        public override bool Initialize()
         {
+            if (base.Initialize() == false)
+            {
+                return false;
+            }
+            Mediator.Subscribe(this);
+            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
+            _levelController = presenter.LevelController;
+            _levelController.OnLevelChanged += OnLevelChanged;
             var levels = _levelController.Config.Levels;
             var levelsCount = levels.Count();
             for (int i = 0; i < levelsCount; i++)
             {
                 AddLevelItem(i);
             }
+            return true;
         }
 
         private void AddLevelItem(int index)
@@ -56,6 +55,7 @@ namespace LightbotHour.Presentation.Views
         private void OnLevelChanged()
         {
             Toggle(false);
+            Mediator.Send<ShowInGameView, bool>();
         }
 
         public bool Handle(ShowLevelView data)

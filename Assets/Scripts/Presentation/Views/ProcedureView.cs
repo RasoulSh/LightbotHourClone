@@ -1,9 +1,11 @@
 ﻿using LightbotHour.Common.Extensions;
 using LightbotHour.Common.GUIPanelSystem;
+using LightbotHour.Common.Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
 using Presentation.GUI.ProgramGUI;
+using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +13,19 @@ namespace LightbotHour.Presentation.Views
 {
     public class ProcedureView : GUIPanel
     {
-        [SerializeField] private LevelInteractorPresenter presenter;
         [SerializeField] private GridLayoutGroup codeItemGrid;
         [SerializeField] private CodeItemGUI codeItemPrefab;
         protected IProgramController programController;
 
-        protected override void Start()
+        public override bool Initialize()
         {
-            base.Start();
+            if (base.Initialize() == false)
+            {
+                return false;
+            }
+            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
             programController = presenter.ProgramController;
+            return true;
         }
 
         public void Clear()
