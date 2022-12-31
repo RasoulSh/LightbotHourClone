@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 namespace LightbotHour.Common.TweenerSystem.Tweeners
 {
-    [RequireComponent(typeof(CanvasGroup))]
-    public class AlphaTweener : SingleTweener
+    [RequireComponent(typeof(Graphic))]
+    public class GraphicAlphaTweener : SingleTweener
     {
         [SerializeField] [Range(0f, 1f)] private float from = 0f;
         [SerializeField] [Range(0f, 1f)] private float to = 1f;
@@ -18,13 +18,15 @@ namespace LightbotHour.Common.TweenerSystem.Tweeners
             get => to;
             set => to = Mathf.Clamp01(value);
         }
-        private CanvasGroup _canvasGroup;
+        private Graphic _graphic;
 
-        private CanvasGroup CanvasGroup =>
-            _canvasGroup != null ? _canvasGroup : _canvasGroup = GetComponent<CanvasGroup>();
+        private Graphic Graphic =>
+            _graphic != null ? _graphic : _graphic = GetComponent<Graphic>();
         protected override void Animate(float t)
         {
-            CanvasGroup.alpha = Mathf.Lerp(from, to, t);
+            var color = Graphic.color;
+            color.a = Mathf.Lerp(from, to, t);
+            Graphic.color = color;
         }
     }
 }

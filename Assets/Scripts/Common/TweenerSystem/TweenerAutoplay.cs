@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace LightbotHour.Common.TweenerSystem
 {
-    [RequireComponent(typeof(Tweener))]
     public class TweenerAutoplay : MonoBehaviour
     {
+        [SerializeField] private Tweener tweener;
         [SerializeField] private ExecuteOrder executeOrder = ExecuteOrder.None;
         [SerializeField] private TweenerDirection direction = TweenerDirection.Forward;
         [SerializeField] private TweenerPlayOrder playOrder = TweenerPlayOrder.Once;
@@ -48,7 +48,15 @@ namespace LightbotHour.Common.TweenerSystem
         
         private void Execute()
         {
-            var tweener = GetComponent<Tweener>();
+            if (tweener == null)
+            {
+                tweener = GetComponent<Tweener>();
+            }
+            if (tweener == null)
+            {
+                Debug.LogError("There is no tweener to play");
+                return;
+            }
             tweener.Play(playOrder, direction);
         }
     }

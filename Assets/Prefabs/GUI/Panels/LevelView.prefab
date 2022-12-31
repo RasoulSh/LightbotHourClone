@@ -152,7 +152,9 @@ GameObject:
   - component: {fileID: 1480189134225273292}
   - component: {fileID: 1480189134225273295}
   - component: {fileID: 1480189134225273294}
+  - component: {fileID: 164252748}
   - component: {fileID: 1480189134225273281}
+  - component: {fileID: 164252743}
   m_Layer: 5
   m_Name: LevelView
   m_TagString: Untagged
@@ -203,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShown: 1
   initializeOnStart: 0
+  tweener: {fileID: 164252748}
   levelGrid: {fileID: 1480189134128844131}
   levelItemPrefab: {fileID: 734742642287241909, guid: 184934c189bd73045b19b6f0a91d8b25, type: 3}
 --- !u!114 &1480189134225273295
@@ -247,6 +250,41 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &164252748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480189134225273291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7846f5654aa140c0acb733555cbca0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delegation:
+    onStartPlaying:
+      m_PersistentCalls:
+        m_Calls: []
+    onFinishPlaying:
+      m_PersistentCalls:
+        m_Calls: []
+    onStartForward:
+      m_PersistentCalls:
+        m_Calls: []
+    onStartBackward:
+      m_PersistentCalls:
+        m_Calls: []
+    onFinishForward:
+      m_PersistentCalls:
+        m_Calls: []
+    onFinishBackward:
+      m_PersistentCalls:
+        m_Calls: []
+  tweeners:
+  - {fileID: 1480189134225273281}
+  - {fileID: 164252743}
+  playMode: 0
 --- !u!114 &1480189134225273281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +297,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275c906a87f24af6b7e7fb875bc5269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delegation:
+    onStartPlaying:
+      m_PersistentCalls:
+        m_Calls: []
+    onFinishPlaying:
+      m_PersistentCalls:
+        m_Calls: []
+    onStartForward:
+      m_PersistentCalls:
+        m_Calls: []
+    onStartBackward:
+      m_PersistentCalls:
+        m_Calls: []
+    onFinishForward:
+      m_PersistentCalls:
+        m_Calls: []
+    onFinishBackward:
+      m_PersistentCalls:
+        m_Calls: []
   config:
     delay: 0
     duration: 0.3
@@ -287,6 +344,20 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     realtime: 1
+  from: 0
+  to: 1
+--- !u!114 &164252743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480189134225273291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283ce3fe23e8467b95f82b35cabbfb92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   delegation:
     onStartPlaying:
       m_PersistentCalls:
@@ -306,5 +377,33 @@ MonoBehaviour:
     onFinishBackward:
       m_PersistentCalls:
         m_Calls: []
-  from: 0
-  to: 1
+  config:
+    delay: 0
+    duration: 0.3
+    tweenerCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    realtime: 1
+  from: {x: 0, y: -450, z: 0}
+  to: {x: 0, y: 0, z: 0}

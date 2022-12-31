@@ -7,7 +7,7 @@ namespace LightbotHour.Common.Utilities
     public static class AnimUtilities
     {
         public static IEnumerator AnimationRoutine(float delay,
-            float duration, Action<float> tAction, bool realTime = false, Action callback = null)
+            float duration, Action<float> tAction, bool realTime = false)
         {
             if (realTime) { yield return new WaitForSecondsRealtime(delay); }
             else { yield return new WaitForSeconds(delay); }
@@ -20,7 +20,6 @@ namespace LightbotHour.Common.Utilities
                 yield return null;
             }
             tAction(1f);
-            callback?.Invoke();
         }
     }
 }

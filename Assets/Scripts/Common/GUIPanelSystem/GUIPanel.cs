@@ -9,8 +9,8 @@ namespace LightbotHour.Common.GUIPanelSystem
     {
         [SerializeField] private bool isShown = true;
         [SerializeField] private bool initializeOnStart = true;
+        [SerializeField] private Tweener tweener;
         private CanvasGroup _canvasGroup;
-        private Tweener _tweener;
         public bool IsInitialized { get; private set; }
 
         protected virtual void Start()
@@ -31,11 +31,11 @@ namespace LightbotHour.Common.GUIPanelSystem
             }
             IsInitialized = true;
             _canvasGroup = GetComponent<CanvasGroup>();
-            _tweener = GetComponent<Tweener>();
-            if (_tweener != null)
+            tweener ??= GetComponent<Tweener>();
+            if (tweener != null)
             {
-                _tweener.Play(isShown, true);
-                _tweener.Delegation.onFinishPlaying.AddListener(OnTweenerFinishedPlaying);   
+                tweener.Play(isShown, true);
+                tweener.Delegation.onFinishPlaying.AddListener(OnTweenerFinishedPlaying);   
             }
             gameObject.SetActive(isShown);
             return true;
@@ -63,17 +63,17 @@ namespace LightbotHour.Common.GUIPanelSystem
                 return;
             }
             this.isShown = isShown;
-            if (_tweener == null)
+            if (tweener == null)
             {
                 gameObject.SetActive(isShown);
                 return;
             }
             if (isShown)
             {
-                _tweener.Play(false, true);
+                tweener.Play(false, true);
                 gameObject.SetActive(true);
             }
-            _tweener.Play(isShown, ignoreAnimate);
+            tweener.Play(isShown, ignoreAnimate);
         }
     }
 }

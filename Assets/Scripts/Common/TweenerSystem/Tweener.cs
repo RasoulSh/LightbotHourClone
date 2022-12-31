@@ -10,11 +10,8 @@ namespace LightbotHour.Common.TweenerSystem
 {
     public abstract class Tweener : MonoBehaviour
     {
-        [SerializeField] private TweenerConfig config;
         [SerializeField] private TweenerDelegation delegation;
-        public TweenerConfig Config => config;
-        public float TotalDuration => config.Duration + config.Delay;
-        private float _currentT;
+        public abstract float TotalDuration { get; }
         private List<Coroutine> _currentRoutines;
         public TweenerDelegation Delegation => delegation;
 
@@ -44,8 +41,14 @@ namespace LightbotHour.Common.TweenerSystem
         {
             if (ignoreAnimate || gameObject.activeInHierarchy == false)
             {
-                _currentT = direction == TweenerDirection.Forward ? 1 : 0;
-                Animate(_currentT);
+                if (direction == TweenerDirection.Forward)
+                {
+                    GotoLastFrame();
+                }
+                else
+                {
+                    GotoFirstFrame();
+                }
                 delegation.InvokeFinishDelegates(direction);
             }
             else
@@ -54,6 +57,7 @@ namespace LightbotHour.Common.TweenerSystem
                 _currentRoutines.Add(StartCoroutine(PlayRoutine(direction)));
             }
         }
+        
         public void Stop() => StopCurrentRoutines();
         
         [ContextMenu("PlayForward")]
@@ -73,7 +77,6 @@ namespace LightbotHour.Common.TweenerSystem
             while (true)
             {
                 yield return StartCoroutine(PlayRoutine(direction));
-                _currentT = direction == TweenerDirection.Forward ? 0f : 1f;
             }
         }
 
@@ -97,14 +100,9 @@ namespace LightbotHour.Common.TweenerSystem
             }
         }
 
-        private IEnumerator PlayRoutine(TweenerDirection direction)
-        {
-            delegation.InvokeStartDelegates(direction);
-            yield return StartCoroutine(AnimUtilities.
-                AnimationRoutine(config.Delay, config.Duration,
-                    t => { ExecuteAnimate(t, direction);}, config.RealTime,
-                    () => { delegation.InvokeFinishDelegates(direction); }));
-        }
+        internal abstract IEnumerator PlayRoutine(TweenerDirection direction);
+        internal abstract void GotoFirstFrame();
+        internal abstract void GotoLastFrame();
         
         private void StopCurrentRoutines()
         {
@@ -116,15 +114,5 @@ namespace LightbotHour.Common.TweenerSystem
             _currentRoutines.ForEach(StopCoroutine);
             _currentRoutines.Clear();
         }
-
-        private void ExecuteAnimate(float t, TweenerDirection direction = TweenerDirection.Forward)
-        {
-            _currentT = direction == TweenerDirection.Backward ? 1f - t : t;
-            Animate( config.TweenerCurve.Evaluate(_currentT));
-        }
-
-        
-
-        protected abstract void Animate(float t);
     }
 }
