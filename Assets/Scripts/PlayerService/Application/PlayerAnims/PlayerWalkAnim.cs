@@ -1,6 +1,5 @@
 ﻿using System.Collections;
-using LightbotHour.Common.Utilities;
-using LightbotHour.PlayerService.Abstraction;
+using TweenerSystem.Common.Utilities;
 using LightbotHour.PlayerService.Entities;
 using UnityEngine;
 

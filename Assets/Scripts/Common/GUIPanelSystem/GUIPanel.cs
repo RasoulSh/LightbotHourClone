@@ -1,5 +1,4 @@
-﻿using System;
-using LightbotHour.Common.TweenerSystem;
+﻿using TweenerSystem;
 using UnityEngine;
 
 namespace LightbotHour.Common.GUIPanelSystem

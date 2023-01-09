@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.rsh.tweenersystem": {
+      "version": "https://github.com/RasoulSh/Tweener.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bab56f24a5aae13f6d7832c848f3c3ee27583469"
+    },
     "com.unity.collab-proxy": {
       "version": "1.5.7",
       "depth": 0,

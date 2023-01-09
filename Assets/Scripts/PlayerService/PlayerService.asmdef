@@ -2,7 +2,8 @@
     "name": "PlayerService",
     "rootNamespace": "",
     "references": [
-        "GUID:7ecb4214c78790042ad4b161f8d0c723"
+        "GUID:7ecb4214c78790042ad4b161f8d0c723",
+        "GUID:070154e96fe36c243b3bcc3d9e4f45c3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
