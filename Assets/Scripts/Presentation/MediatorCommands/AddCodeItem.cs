@@ -1,4 +1,4 @@
-﻿using LightbotHour.Common.Mediator;
+﻿using Mediator;
 using LightbotHour.LevelInteractor.ValueObject;
 
 namespace Presentation.MediatorCommands

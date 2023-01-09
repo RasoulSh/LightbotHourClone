@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using LightbotHour.Common.GUIPanelSystem;
-using LightbotHour.Common.Mediator;
+using Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using Presentation.GUI.LevelGUI;
 using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
+using MediatorSystem = Mediator.Mediator;
 
 namespace LightbotHour.Presentation.Views
 {
@@ -18,7 +19,7 @@ namespace LightbotHour.Presentation.Views
 
         private void OnDestroy()
         {
-            Mediator.Unsubscribe(this);
+            MediatorSystem.Unsubscribe(this);
         }
 
         public override bool Initialize()
@@ -27,8 +28,8 @@ namespace LightbotHour.Presentation.Views
             {
                 return false;
             }
-            Mediator.Subscribe(this);
-            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
+            MediatorSystem.Subscribe(this);
+            var presenter = MediatorSystem.Send<GetLevelPresenter, LevelInteractorPresenter>();
             _levelController = presenter.LevelController;
             _levelController.OnLevelChanged += OnLevelChanged;
             var levels = _levelController.Config.Levels;
@@ -55,7 +56,7 @@ namespace LightbotHour.Presentation.Views
         private void OnLevelChanged()
         {
             Toggle(false);
-            Mediator.Send<ShowInGameView, bool>();
+            MediatorSystem.Send<ShowInGameView, bool>();
         }
 
         public bool Handle(ShowLevelView data)

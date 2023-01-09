@@ -1,11 +1,4 @@
-﻿using LightbotHour.Common.Extensions;
-using LightbotHour.Common.GUIPanelSystem;
-using LightbotHour.LevelInteractor;
-using LightbotHour.LevelInteractor.Abstraction;
-using LightbotHour.LevelInteractor.ValueObject;
-using Presentation.GUI.ProgramGUI;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using LightbotHour.LevelInteractor.ValueObject;
 
 namespace LightbotHour.Presentation.Views
 {

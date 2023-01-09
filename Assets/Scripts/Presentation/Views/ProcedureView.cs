@@ -1,6 +1,6 @@
 ﻿using LightbotHour.Common.Extensions;
 using LightbotHour.Common.GUIPanelSystem;
-using LightbotHour.Common.Mediator;
+using Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
@@ -8,6 +8,7 @@ using Presentation.GUI.ProgramGUI;
 using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
+using MediatorSystem = Mediator.Mediator;
 
 namespace LightbotHour.Presentation.Views
 {
@@ -23,7 +24,7 @@ namespace LightbotHour.Presentation.Views
             {
                 return false;
             }
-            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
+            var presenter = MediatorSystem.Send<GetLevelPresenter, LevelInteractorPresenter>();
             programController = presenter.ProgramController;
             return true;
         }

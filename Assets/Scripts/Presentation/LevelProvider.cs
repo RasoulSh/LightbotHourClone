@@ -1,9 +1,9 @@
-﻿using System;
-using LightbotHour.Common.Mediator;
+﻿using Mediator;
 using LightbotHour.LevelInteractor;
 using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using MediatorSystem = Mediator.Mediator;
 
 namespace Presentation
 {
@@ -16,12 +16,12 @@ namespace Presentation
         private void Awake()
         {
             SceneManager.LoadScene(levelScene, LoadSceneMode.Additive);
-            Mediator.Subscribe(this);
+            MediatorSystem.Subscribe(this);
         }
 
         private void OnDestroy()
         {
-            Mediator.Unsubscribe(this);
+            MediatorSystem.Unsubscribe(this);
         }
 
         public LevelInteractorPresenter Handle(GetLevelPresenter data)

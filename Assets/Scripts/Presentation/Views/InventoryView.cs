@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using LightbotHour.Common.Extensions;
 using LightbotHour.Common.GUIPanelSystem;
-using LightbotHour.Common.Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
@@ -10,6 +8,7 @@ using LightbotHour.Presentation.GUI.InventoryGUI;
 using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
+using MediatorSystem = Mediator.Mediator;
 
 namespace LightbotHour.Presentation.Views
 {
@@ -26,7 +25,7 @@ namespace LightbotHour.Presentation.Views
                 return false;
             }
 
-            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
+            var presenter = MediatorSystem.Send<GetLevelPresenter, LevelInteractorPresenter>();
             _inventoryController = presenter.InventoryController;
             presenter.LevelController.OnLevelChanged += UpdateGUI;
             return true;
@@ -58,12 +57,12 @@ namespace LightbotHour.Presentation.Views
 
         private void OnEachItemSelectProc1(InventoryItemGUI inventoryitem)
         {
-            Mediator.Send<AddCodeItemToProc1, bool>(new AddCodeItemToProc1(inventoryitem.Command));
+            MediatorSystem.Send<AddCodeItemToProc1, bool>(new AddCodeItemToProc1(inventoryitem.Command));
         }
 
         private void OnEachItemSelect(InventoryItemGUI inventoryItem)
         {
-            Mediator.Send<AddCodeItem, bool>(new AddCodeItem(inventoryItem.Command));
+            MediatorSystem.Send<AddCodeItem, bool>(new AddCodeItem(inventoryItem.Command));
         }
         
     }

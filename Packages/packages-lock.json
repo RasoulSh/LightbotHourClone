@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.rsh.mediator": {
+      "version": "https://github.com/RasoulSh/Mediator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "95fb9a969776c0e30dff225d6339dd4e24d1575b"
+    },
     "com.rsh.tweenersystem": {
       "version": "https://github.com/RasoulSh/Tweener.git",
       "depth": 0,

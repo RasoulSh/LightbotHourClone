@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using LightbotHour.Common.GUIPanelSystem;
-using LightbotHour.Common.Mediator;
+using Mediator;
 using LightbotHour.LevelInteractor;
 using LightbotHour.LevelInteractor.Abstraction;
 using LightbotHour.LevelInteractor.ValueObject;
 using Presentation.MediatorCommands;
 using UnityEngine;
 using UnityEngine.UI;
+using MediatorSystem = Mediator.Mediator;
 
 namespace LightbotHour.Presentation.Views
 {
@@ -29,8 +29,8 @@ namespace LightbotHour.Presentation.Views
             {
                 return false;
             }
-            Mediator.Subscribe(this);
-            var presenter = Mediator.Send<GetLevelPresenter, LevelInteractorPresenter>();
+            MediatorSystem.Subscribe(this);
+            var presenter = MediatorSystem.Send<GetLevelPresenter, LevelInteractorPresenter>();
             _programController = presenter.ProgramController;
             _levelController = presenter.LevelController;
             _programController.OnProgramRunFinished += OnProgramRunFinished;
@@ -46,13 +46,13 @@ namespace LightbotHour.Presentation.Views
 
         private void OnDestroy()
         {
-            Mediator.Unsubscribe(this);
+            MediatorSystem.Unsubscribe(this);
         }
 
         private void Retry()
         {
             _levelController.ResetLevel();
-            Mediator.Send<SetInGamePanelsInteractable, bool>(
+            MediatorSystem.Send<SetInGamePanelsInteractable, bool>(
                 new SetInGamePanelsInteractable(true));
         }
 
@@ -71,7 +71,7 @@ namespace LightbotHour.Presentation.Views
         {
             runButton.interactable = false;
             stopButton.gameObject.SetActive(true);
-            Mediator.Send<SetInGamePanelsInteractable, bool>(
+            MediatorSystem.Send<SetInGamePanelsInteractable, bool>(
                 new SetInGamePanelsInteractable(false));
             _programController.RunProgram();
         }
@@ -91,7 +91,7 @@ namespace LightbotHour.Presentation.Views
             stopButton.gameObject.SetActive(false);
             retryButton.gameObject.SetActive(false);
             nextLevelButton.gameObject.SetActive(false);
-            Mediator.Send<SetInGamePanelsInteractable, bool>(
+            MediatorSystem.Send<SetInGamePanelsInteractable, bool>(
                 new SetInGamePanelsInteractable(true));
             var currentLevel = _levelController.Config.Levels.ElementAt(_levelController.CurrentLevelIndex);
             var isProc1Available = currentLevel.AvailableCommands.Any(cmd => cmd == BotCommandValue.Proc1);

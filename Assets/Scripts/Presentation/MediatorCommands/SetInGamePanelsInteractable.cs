@@ -1,4 +1,4 @@
-﻿using LightbotHour.Common.Mediator;
+﻿using Mediator;
 
 namespace Presentation.MediatorCommands
 {

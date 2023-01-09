@@ -18,7 +18,10 @@ namespace LightbotHour.Common.GUIPanelSystem
             {
                 return;
             }
-            Initialize();
+            if (initializeOnStart)
+            {
+                Initialize();   
+            }
         }
 
         public virtual bool Initialize()

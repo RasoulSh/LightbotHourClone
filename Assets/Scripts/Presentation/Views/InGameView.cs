@@ -1,7 +1,8 @@
 ﻿using LightbotHour.Common.GUIPanelSystem;
-using LightbotHour.Common.Mediator;
+using Mediator;
 using Presentation.MediatorCommands;
 using UnityEngine;
+using MediatorSystem = Mediator.Mediator;
 
 namespace LightbotHour.Presentation.Views
 {
@@ -16,13 +17,13 @@ namespace LightbotHour.Presentation.Views
             {
                 return false;
             }
-            Mediator.Subscribe(this);
+            MediatorSystem.Subscribe(this);
             return true;
         }
 
         private void OnDestroy()
         {
-            Mediator.Unsubscribe(this);
+            MediatorSystem.Unsubscribe(this);
         }
 
         public bool Handle(SetInGamePanelsInteractable data)
